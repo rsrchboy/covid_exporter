@@ -46,17 +46,19 @@ export default class MetricsProvider {
     _.each(states, (s) => {
       const { state, ...stats } = s
       for (const key in stats as { [key: string]: number }) {
-        const metricKey = `covid_${keyNameMapping[key]}`
-        const value = _.get(stats, key)
-        const gauge = registry.getSingleMetric(metricKey) as Gauge<any>
-        if (value != null) {
-          gauge.set(
-            {
-              country: 'USA',
-              state,
-            },
-            value,
-          )
+        if (keyNameMapping[key]) {
+          const metricKey = `covid_${keyNameMapping[key]}`
+          const value = _.get(stats, key)
+          const gauge = registry.getSingleMetric(metricKey) as Gauge<any>
+          if (value != null) {
+            gauge.set(
+                {
+                  country: 'USA',
+                  state,
+                },
+                value,
+            )
+          }
         }
       }
     })
