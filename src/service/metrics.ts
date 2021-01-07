@@ -40,7 +40,7 @@ export default class MetricsProvider {
   public static getMetrics = async () => {
     const registry = MetricsProvider.registry
     const states = _.get(
-      await axios.get('https://corona.lmao.ninja/v2/states'),
+      await axios.get('https://disease.sh/v2/states'),
       'data',
     )
     _.each(states, (s) => {
